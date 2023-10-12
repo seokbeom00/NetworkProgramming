@@ -138,8 +138,6 @@ public class practice2023 {
             System.out.println("Missing File: " + missingFile);
             System.out.println("max_freq_num: " + max_freq_num + " max_freq: " + max_freq);
             System.out.println("min_freq_num: " + min_freq_num + " max_freq: " + min_freq);
-//            finds = null;
-//            java.lang.System.gc();
         }
         long end = System.nanoTime();
         System.out.println("Average Run-time: "+(end - start)/5);
