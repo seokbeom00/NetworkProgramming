@@ -1,10 +1,9 @@
-package org.Midterm;
+package org.assignment1;
 
-import java.net.URL;
+
 import java.io.*;
 
-public class practice2023_web {
-
+public class practice2023 {
     public static int Max[] = new int[10];
     public static int Min[] = new int[10];
 
@@ -34,10 +33,12 @@ public class practice2023_web {
             }
         }
         public void working(String str){
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(str).openStream()), 65536)) {
+            try {
+                FileInputStream fi = new FileInputStream(str);
+                BufferedReader br = new BufferedReader(new InputStreamReader(fi), 65536);
+                findFile++;
                 String[] nums;
                 String line;
-                findFile ++;
                 while ((line = br.readLine()) != null) {
                     nums = line.split("\\s");
                     for (int i = 0; i < nums.length; i++) {
@@ -62,14 +63,13 @@ public class practice2023_web {
         public void run() {
             for (int c = start_c; c < start_c + 5; c++) {
                 for (int d = 1; d <= 50; d++) {
-                    String url = "http://nas.hoony.me:9998/midtermPractice/file%20";
-                    working(url
+                    working("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                             + "(c=" + c + ")_(d=" + d + ").txt");
-                    working(url
+                    working("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                             + "(c=" + c + ")_<d=" + d + ">.txt");
-                    working(url
+                    working("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                             + "<c=" + c + ">_(d=" + d + ").txt");
-                    working(url
+                    working("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                             + "<c=" + c + ">_<d=" + d + ">.txt");
                 }
             }
@@ -138,6 +138,8 @@ public class practice2023_web {
             System.out.println("Missing File: " + missingFile);
             System.out.println("max_freq_num: " + max_freq_num + " max_freq: " + max_freq);
             System.out.println("min_freq_num: " + min_freq_num + " max_freq: " + min_freq);
+//            finds = null;
+//            java.lang.System.gc();
         }
         long end = System.nanoTime();
         System.out.println("Average Run-time: "+(end - start)/5);
