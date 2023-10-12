@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MidtermExam2022 {
-	public static int arr[] = new int[3000];
+	public static int arr[] = new int[2000];
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -121,11 +121,11 @@ public class MidtermExam2022 {
 			for (int d = start; d <= start + 4; d++) {
 				for (int c = 1; c <= 50; c++) {
 					String url = "http://localhost:4000/download/" + "file%20(c=" + c
-							+ ")%20(d=" + d + ").txt";
+							+ ")_(d=" + d + ").txt";
 					try {
 						URL u = new URL(url);
 						InputStream in = u.openStream();
-						BufferedReader br = new BufferedReader(new InputStreamReader(in));
+						BufferedReader br = new BufferedReader(new InputStreamReader(in), 32768);
 						String line = "";
 						while ((line = br.readLine()) != null) {
 							String[] nums = line.split("\\s+");
@@ -147,10 +147,10 @@ public class MidtermExam2022 {
 
 						try {
 							url = "http://localhost:4000/download/" + "file%20(c=" + c
-									+ ")%20(d=" + d + ").txt";
+									+ ")_<d=" + d + ">.txt";
 							URL u = new URL(url);
 							InputStream in = u.openStream();
-							BufferedReader br = new BufferedReader(new InputStreamReader(in));
+							BufferedReader br = new BufferedReader(new InputStreamReader(in) ,32768);
 							String line = "";
 							while ((line = br.readLine()) != null) {
 								String[] nums = line.split("\\s+");
@@ -169,11 +169,11 @@ public class MidtermExam2022 {
 							throw new RuntimeException(e1);
 						} catch (IOException e2) {
 							try {
-								url = "http://localhost:4000/download/" + "file%20(c=" + c
-										+ ")%20(d=" + d + ").txt";
+								url = "http://localhost:4000/download/" + "file%20<c=" + c
+										+ ">_(d=" + d + ").txt";
 								URL u = new URL(url);
 								InputStream in = u.openStream();
-								BufferedReader br = new BufferedReader(new InputStreamReader(in));
+								BufferedReader br = new BufferedReader(new InputStreamReader(in), 32768);
 								String line = "";
 								while ((line = br.readLine()) != null) {
 									String[] nums = line.split("\\s+");
@@ -192,11 +192,11 @@ public class MidtermExam2022 {
 								throw new RuntimeException(e3);
 							} catch (IOException e4) {
 								try {
-									url = "http://localhost:4000/download/" + "file%20(c=" + c
-											+ ")%20(d=" + d + ").txt";
+									url = "http://localhost:4000/download/" + "file%20<c=" + c
+											+ ">_<d=" + d + ">.txt";
 									URL u = new URL(url);
 									InputStream in = u.openStream();
-									BufferedReader br = new BufferedReader(new InputStreamReader(in));
+									BufferedReader br = new BufferedReader(new InputStreamReader(in), 32768);
 									String line = "";
 									while ((line = br.readLine()) != null) {
 										String[] nums = line.split("\\s+");

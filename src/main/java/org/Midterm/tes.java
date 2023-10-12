@@ -5,9 +5,7 @@ import java.net.URL;
 
 public class tes {
     public static void main(String[] args) throws IOException {
-        int c = 1;
-        int d = 25;
-        String url = "http://localhost:4000/download/file%20(c=2)%20(d=10).txt";
+        String url = "http://nas.hoony.me:9998/midtermPractice/file%20(c=1)_(d=26).txt";
         URL u = new URL(url);
         InputStream in = u.openStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -18,5 +16,6 @@ public class tes {
                 System.out.println(nums[i]);
             }
         }
+
     }
 }

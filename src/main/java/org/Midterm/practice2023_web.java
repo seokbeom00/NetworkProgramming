@@ -4,11 +4,7 @@ import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.io.*;
 public class practice2023_web {
-
-
-
-
-    public static AtomicInteger freq[] = new AtomicInteger[3000];
+    public static AtomicInteger freq[] = new AtomicInteger[2001];
     public static int Max[] = new int[10];
     public static int Min[] = new int[10];
     public static int FileNum[] = new int[10];
@@ -30,25 +26,28 @@ public class practice2023_web {
             freq[num].incrementAndGet();
         }
         public void addMax(int threadNum, int num){
-            Max[threadNum] = num;
+            synchronized (Max){
+                Max[threadNum] = num;
+            }
         }
         public void addMin(int threadNum, int num){
-            Min[threadNum] = num;
+            synchronized (Min){
+                Min[threadNum] = num;
+            }
         }
         public void addFileNum(int threadNum, int num){
-            FileNum[threadNum] = num;
+            synchronized (FileNum){
+                FileNum[threadNum] = num;
+            }
         }
 
         @Override
         public void run() {
             for (int c = start_c; c < start_c + 5; c++) {
-                for (int d = 1; d < 60; d++) {
-                    try {
-                        String url = "http://localhost:4000/download/" + "file%20(c=" + c
-                                + ")%20(d=" + d + ").txt";
-                        URL u = new URL(url);
-                        InputStream in = u.openStream();
-                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                for (int d = 1; d <= 50; d++) {
+                    String url = "http://nas.hoony.me:9998/static/midtermPractice/" + "file%20(c=" + c
+                            + ")_(d=" + d + ").txt";
+                    try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()), 32768)) {
                         String[] nums;
                         String line;
                         fileNum += 1;
@@ -66,12 +65,9 @@ public class practice2023_web {
                             }
                         }
                     } catch (FileNotFoundException e) {
-                        try {
-                            String url = "http://localhost:4000/download/" + "file%20(c=" + c
-                                    + ")%20(d=" + d + ").txt";
-                            URL u = new URL(url);
-                            InputStream in = u.openStream();
-                            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                        url = "http://nas.hoony.me:9998/static/midtermPractice/" + "file%20(c=" + c
+                                + ")_<d=" + d + ">.txt";
+                        try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()), 32768)) {
                             String[] nums;
                             String line;
                             fileNum += 1;
@@ -89,12 +85,9 @@ public class practice2023_web {
                                 }
                             }
                         } catch (FileNotFoundException e1) {
-                            try {
-                                String url = "http://localhost:4000/download/" + "file%20(c=" + c
-                                        + ")%20(d=" + d + ").txt";
-                                URL u = new URL(url);
-                                InputStream in = u.openStream();
-                                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                            url = "http://nas.hoony.me:9998/static/midtermPractice/" + "file%20<c=" + c
+                                    + ">_(d=" + d + ").txt";
+                            try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()), 32768)) {
                                 String[] nums;
                                 String line;
                                 fileNum += 1;
@@ -112,12 +105,9 @@ public class practice2023_web {
                                     }
                                 }
                             } catch (FileNotFoundException e2) {
-                                try {
-                                    String url = "http://localhost:4000/download/" + "file%20(c=" + c
-                                            + ")%20(d=" + d + ").txt";
-                                    URL u = new URL(url);
-                                    InputStream in = u.openStream();
-                                    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                                url = "http://nas.hoony.me:9998/static/midtermPractice/" + "file%20<c=" + c
+                                        + ">_<d=" + d + ">.txt";
+                                try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()), 32768)) {
                                     String[] nums;
                                     String line;
                                     fileNum += 1;
@@ -136,7 +126,8 @@ public class practice2023_web {
                                     }
                                 } catch (FileNotFoundException e3) {
                                     //없는 파일 처리?
-                                } catch (IOException ex) {
+                                }
+                                catch (IOException ex) {
 
                                 }
                             } catch (IOException ex) {
@@ -146,18 +137,17 @@ public class practice2023_web {
 
                         }
                     } catch (IOException e) {
-
                     }
                 }
             }
-            addMax((start_c-1)/6, max);
-            addMin((start_c-1)/6, min);
-            addFileNum((start_c-1)/6, fileNum);
+            addMax((start_c-1)/5, max);
+            addMin((start_c-1)/5, min);
+            addFileNum((start_c-1)/5, fileNum);
         }
     }
     public static void main(String[] args) {
         long start = System.nanoTime();
-        for(int j=0; j<5; j++) {
+        for(int j=0; j<1; j++) {
 //            Arrays.fill(freq, 0);
             for (int i = 0; i < freq.length; i++) {
                 freq[i] = new AtomicInteger();
@@ -175,7 +165,7 @@ public class practice2023_web {
             int max_freq_num = 0, max_freq = 0, min_freq_num = 0, min_freq = Integer.MAX_VALUE, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE, missingFile = 2500;
             Find[] finds = new Find[threadNum];
             for (int i = 0; i < threadNum; i++) {
-                finds[i] = new Find(Integer.MIN_VALUE, Integer.MAX_VALUE, i * 6 + 1);
+                finds[i] = new Find(Integer.MIN_VALUE, Integer.MAX_VALUE, i * 5 + 1);
                 finds[i].start();
             }
             for (int i = 0; i < threadNum; i++) {
@@ -209,6 +199,8 @@ public class practice2023_web {
             System.out.println("Missing File: " + missingFile);
             System.out.println("max_freq_num File: " + max_freq_num + " max_freq: " + max_freq);
             System.out.println("min_freq_num File: " + min_freq_num + " max_freq: " + min_freq);
+            finds = null;
+            java.lang.System.gc();
         }
         long end = System.nanoTime();
         System.out.println("Average Run-time: "+(end - start)/5);

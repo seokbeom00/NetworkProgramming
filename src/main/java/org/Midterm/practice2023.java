@@ -43,7 +43,7 @@ public class practice2023 {
                     try {
                         FileInputStream fi = new FileInputStream("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                                 + "(c=" + c + ")_(d=" + d + ").txt");
-                        BufferedReader br = new BufferedReader(new InputStreamReader(fi));
+                        BufferedReader br = new BufferedReader(new InputStreamReader(fi), 32768);
                         String[] nums;
                         String line;
                         fileNum += 1;
@@ -64,7 +64,7 @@ public class practice2023 {
                         try {
                             FileInputStream fi = new FileInputStream("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                                     + "(c=" + c + ")_<d=" + d + ">.txt");
-                            BufferedReader br = new BufferedReader(new InputStreamReader(fi));
+                            BufferedReader br = new BufferedReader(new InputStreamReader(fi), 32768);
                             String[] nums;
                             String line;
                             fileNum += 1;
@@ -85,7 +85,7 @@ public class practice2023 {
                             try {
                                 FileInputStream fi = new FileInputStream("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                                         + "<c=" + c + ">_(d=" + d + ").txt");
-                                BufferedReader br = new BufferedReader(new InputStreamReader(fi));
+                                BufferedReader br = new BufferedReader(new InputStreamReader(fi), 32768);
                                 String[] nums;
                                 String line;
                                 fileNum += 1;
@@ -106,7 +106,7 @@ public class practice2023 {
                                 try {
                                     FileInputStream fi = new FileInputStream("/Users/seokbeom/backend-intellij/networdprogramming/untitled/src/main/java/org/Midterm/Archive/file "
                                             + "<c=" + c + ">_<d=" + d + ">.txt");
-                                    BufferedReader br = new BufferedReader(new InputStreamReader(fi));
+                                    BufferedReader br = new BufferedReader(new InputStreamReader(fi), 32768);
                                     String[] nums;
                                     String line;
                                     fileNum += 1;
@@ -146,7 +146,7 @@ public class practice2023 {
     }
     public static void main(String[] args) {
         long start = System.nanoTime();
-        for(int j=0; j<5; j++) {
+        for(int j=0; j<20; j++) {
 //            Arrays.fill(freq, 0);
             for (int i = 0; i < freq.length; i++) {
                 freq[i] = new AtomicInteger();
