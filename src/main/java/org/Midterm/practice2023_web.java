@@ -4,10 +4,6 @@ import java.net.URL;
 import java.io.*;
 
 public class practice2023_web {
-
-    public static int Max[] = new int[10];
-    public static int Min[] = new int[10];
-
     static class Find extends Thread {
         befoData bf;
         private int max;
@@ -23,16 +19,6 @@ public class practice2023_web {
             this.bf = bf;
         }
 
-        public void addMax(int threadNum, int num){
-            synchronized (Max){
-                Max[threadNum] = num;
-            }
-        }
-        public void addMin(int threadNum, int num){
-            synchronized (Min){
-                Min[threadNum] = num;
-            }
-        }
         public void working(String str){
             try(BufferedReader br = new BufferedReader(new InputStreamReader(new URL(str).openStream()), 65536)) {
                 String[] nums;
@@ -73,13 +59,15 @@ public class practice2023_web {
                             + "<c=" + c + ">_<d=" + d + ">.txt");
                 }
             }
-            addMax((start_c-1)/5, max);
-            addMin((start_c-1)/5, min);
+            bf.Max = max;
+            bf.Min = min;
         }
     }
     static class befoData{
+        private int Max;
+        private int Min;
         private int freq[];
-        public befoData(int freq[]){
+        public befoData(int[] freq){
             this.freq = freq;
         }
     }
@@ -87,15 +75,9 @@ public class practice2023_web {
         long start = System.nanoTime();
         int threadNum = 10;
         befoData[] bf = new befoData[threadNum];
-        for(int j=0; j<5; j++) {
+        for(int j=0; j<1; j++) {
             for (int i = 0; i < threadNum; i++) {
                 bf[i] = new befoData(new int[2001]);
-            }
-            for (int i = 0; i < Max.length; i++) {
-                Max[i] =0;
-            }
-            for (int i = 0; i < Min.length; i++) {
-                Min[i] = 0;
             }
             int max_freq_num = 0, max_freq = 0, min_freq_num = 0, min_freq = Integer.MAX_VALUE, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE, missingFile = 2500;
             Find[] finds = new Find[threadNum];
@@ -109,6 +91,12 @@ public class practice2023_web {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+            }
+            int Max[] = new int[threadNum];
+            int Min[] = new int[threadNum];
+            for(int i=0; i<threadNum; i++){
+                Max[i] = bf[i].Max;
+                Min[i] = bf[i].Min;
             }
             int freq[] = new int[2001];
             for(int i = 0; i < threadNum; i++) {
