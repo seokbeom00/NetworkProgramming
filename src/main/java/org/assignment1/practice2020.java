@@ -55,10 +55,10 @@ public class practice2020 {
                 BufferedReader br = new BufferedReader(new InputStreamReader(fi), 65536);
                 String[] nums;
                 String line;
-                int max_row = 0;
-                int max_col = 0;
-                int min_row = 0;
-                int mun_col = 0;
+                int max_row = 1;
+                int max_col = 1;
+                int min_row = 1;
+                int mun_col = 1;
                 while ((line = br.readLine()) != null) {
                     nums = line.split("\\s");
                     max_row = 0;
@@ -66,7 +66,7 @@ public class practice2020 {
                         int number = Integer.parseInt(nums[i]);
                         if(number == max){
                             max_count++;
-//                            System.out.println("c: "+c+" d: "+d+" row: "+max_row+" col: "+max_col+" max: "+max);
+                            System.out.println("c: "+c+" d: "+d+" row: "+max_row+" col: "+max_col+" max: "+max);
                         }
                         if(number == min){
 //                            System.out.println("c: "+c+" d: "+d+" row: "+min_row+" col: "+mun_col+" min: "+min);

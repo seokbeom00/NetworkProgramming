@@ -87,7 +87,7 @@ public class practice2023 {
         long start = System.nanoTime();
         int threadNum = 10;
         befoData[] bf = new befoData[threadNum];
-        for(int j=0; j<5; j++) {
+        for(int j=0; j<1; j++) {
             for (int i = 0; i < threadNum; i++) {
                 bf[i] = new befoData(new int[2001]);
             }
